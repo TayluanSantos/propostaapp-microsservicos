@@ -1,0 +1,15 @@
+spring:
+  application:
+  name: propostaapp
+  datasource:
+    url: jdbc:postgresql://localhost:5432/propostadb
+    password: postgres
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Cria as entidades do banco de dados automaticamente e deleta quando o programa é finalizado
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+

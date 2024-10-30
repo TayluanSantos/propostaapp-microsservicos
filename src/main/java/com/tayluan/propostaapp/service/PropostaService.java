@@ -16,11 +16,17 @@ public class PropostaService {
     @Autowired
     private PropostaRepository propostaRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public PropostaResponseDto criar (PropostaRequestDto requestDto) {
         Proposta proposta = PropostaMapper.INSTANCE.convertDtoToProposta(requestDto);// Converte de DTO para entidade para salvar no banco
         propostaRepository.save(proposta);
 
-        return PropostaMapper.INSTANCE.convertEntityToDto(proposta); // Converto de entidade para DTO para retornar a resposta
+        PropostaResponseDto responseDto = PropostaMapper.INSTANCE.convertEntityToDto(proposta);// Converto de entidade para DTO para retornar a resposta
+        notificationService.notificar(responseDto,"proposta-pendente.ex");
+
+        return responseDto;
     }
 
     public List<PropostaResponseDto> obterPropostas() {
